@@ -1,9 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import store from "./store";
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
+import "./plugins/bootstrap";
 
 Vue.config.productionTip = false;
 
