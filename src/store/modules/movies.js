@@ -1,23 +1,55 @@
 import axios from "@/plugins/axios";
 import movies_id from "@/store/mock/imdb_250";
+import mutations from "@/store/mutations";
+
+function serializeResponse(movies) {
+	return movies.reduce((acc, movie) => {
+		acc[movie.imdbID] = movie;
+		return acc;
+	}, {});
+}
+
+const { MOVIES } = mutations;
 
 const moviesStore = {
 	namespaced: true,
+
 	state: {
-		top250IDs: movies_id,
+		top250IDs: movies_id, // id фильмов
+		moviesPerPage: 12, // количество фильмов на странице
+		currentPage: 1, // текущая старница
+		movies: {},
 	},
-	mutations: {},
-	actions: {
-		async fetchMovies(context) {
-			console.log("context :>> ", context);
-			const response = await axios.get("/", {
-				params: {
-					i: "tt1285016",
-				},
-			});
-			console.log("response :>> ", response);
+
+	mutations: {
+		[MOVIES](state, value) {
+			state.movies = value;
 		},
 	},
+
+	actions: {
+		async fetchMovies({ getters, commit }) {
+			try {
+				const { currentPage, moviesPerPage, slicedIDs } = getters;
+				const from = currentPage * moviesPerPage - moviesPerPage;
+				const to = currentPage * moviesPerPage;
+				const moviesToFetch = slicedIDs(from, to);
+				const requests = moviesToFetch.map(id => axios.get(`/?i=${id}`));
+				const response = await Promise.all(requests);
+				const movies = serializeResponse(response);
+				commit(MOVIES, movies);
+			} catch (error) {
+				console.log("error :>> ", error);
+			}
+		},
+	},
+
+	getters: {
+		slicedIDs: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
+		moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
+		currentPage: ({ currentPage }) => currentPage,
+	},
+
 	modules: {},
 };
 
