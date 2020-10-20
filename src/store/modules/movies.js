@@ -1,8 +1,11 @@
 import axios from "@/plugins/axios";
+import movies_id from "@/store/mock/imdb_250";
 
 const moviesStore = {
 	namespaced: true,
-	state: {},
+	state: {
+		top250IDs: movies_id,
+	},
 	mutations: {},
 	actions: {
 		async fetchMovies(context) {
