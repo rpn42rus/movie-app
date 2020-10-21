@@ -56,6 +56,7 @@ const moviesStore = {
 		slicedIDs: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
 		moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
 		currentPage: ({ currentPage }) => currentPage,
+		moviesList: ({ movies }) => movies,
 	},
 
 	modules: {},

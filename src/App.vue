@@ -1,13 +1,21 @@
 <template>
-	<div id="app"></div>
+	<div id="app">
+		<MoviesList :list="moviesList" />
+	</div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import MoviesList from "./components/MoviesList";
 
 export default {
 	name: "App",
-	components: {},
+	components: { MoviesList },
+
+	computed: {
+		...mapGetters("movies", ["moviesList"]),
+	},
+
 	methods: {
 		...mapActions("movies", ["fetchMovies"]),
 	},
@@ -16,11 +24,6 @@ export default {
 
 <style lang="scss">
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
+	font-family: Arial, Helvetica, Arial, sans-serif;
 }
 </style>
