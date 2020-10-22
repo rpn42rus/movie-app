@@ -39,7 +39,19 @@ export default {
 		},
 
 		onPageChanged(page) {
-			this.changeCurrentPage(page);
+			this.$router.push({ query: { page } });
+		},
+
+		onPageQueryChange({ page = 1 } = {}) {
+			this.changeCurrentPage(Number(page));
+		},
+	},
+
+	watch: {
+		"$route.query": {
+			handler: "onPageQueryChange",
+			immediate: true,
+			deep: true,
 		},
 	},
 };
