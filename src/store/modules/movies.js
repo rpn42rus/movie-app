@@ -42,8 +42,9 @@ const moviesStore = {
 		// 1) опеределяем интервал фильмов с какого по какой индекс
 		// 2) делаем запрос на получение id фильмов по вычисленным индексам
 		// 3) переопределяем объект movies
-		async fetchMovies({ getters, commit }) {
+		async fetchMovies({ getters, commit, dispatch }) {
 			try {
+				dispatch("toggleLoader", true, { root: true });
 				const { currentPage, moviesPerPage, slicedIDs } = getters;
 				const from = currentPage * moviesPerPage - moviesPerPage;
 				const to = currentPage * moviesPerPage;
@@ -54,6 +55,8 @@ const moviesStore = {
 				commit(MOVIES, movies);
 			} catch (error) {
 				console.log("error :>> ", error);
+			} finally {
+				dispatch("toggleLoader", false, { root: true });
 			}
 		},
 
