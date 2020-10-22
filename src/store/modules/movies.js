@@ -9,7 +9,7 @@ function serializeResponse(movies) {
 	}, {});
 }
 
-const { MOVIES } = mutations;
+const { MOVIES, CURRENT_PAGE } = mutations;
 
 const moviesStore = {
 	namespaced: true,
@@ -25,6 +25,9 @@ const moviesStore = {
 		[MOVIES](state, value) {
 			state.movies = value;
 		},
+		[CURRENT_PAGE](state, value) {
+			state.currentPage = value;
+		},
 	},
 
 	actions: {
@@ -36,6 +39,9 @@ const moviesStore = {
 			root: true,
 		},
 
+		// 1) опеределяем интервал фильмов с какого по какой индекс
+		// 2) делаем запрос на получение id фильмов по вычисленным индексам
+		// 3) переопределяем объект movies
 		async fetchMovies({ getters, commit }) {
 			try {
 				const { currentPage, moviesPerPage, slicedIDs } = getters;
@@ -50,6 +56,11 @@ const moviesStore = {
 				console.log("error :>> ", error);
 			}
 		},
+
+		changeCurrentPage({ commit, dispatch }, page) {
+			commit("CURRENT_PAGE", page);
+			dispatch("fetchMovies");
+		},
 	},
 
 	getters: {
@@ -57,6 +68,7 @@ const moviesStore = {
 		moviesPerPage: ({ moviesPerPage }) => moviesPerPage,
 		currentPage: ({ currentPage }) => currentPage,
 		moviesList: ({ movies }) => movies,
+		moviesLength: ({ top250IDs }) => Number(Object.keys(top250IDs).length),
 	},
 
 	modules: {},
