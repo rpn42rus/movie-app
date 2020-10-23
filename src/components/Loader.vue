@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-	name: "Loader",
+	name: 'Loader',
 
 	computed: {
-		...mapGetters(["isShowLoader"]),
+		...mapGetters(['isShowLoader']),
 	},
 };
 </script>

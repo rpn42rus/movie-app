@@ -4,25 +4,25 @@
 
 <script>
 export default {
-	name: "PosterBg",
+	name: 'PosterBg',
 
 	props: {
 		poster: {
 			type: String,
-			default: "",
+			default: '',
 		},
 	},
 
 	data() {
 		return {
-			defaultPosterBg: "linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)",
+			defaultPosterBg: 'linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)',
 		};
 	},
 
 	computed: {
 		posterStyle() {
 			return {
-				"background-image": this.posterBg,
+				'background-image': this.posterBg,
 			};
 		},
 
@@ -47,7 +47,7 @@ export default {
 }
 
 .poster-page-bg::before {
-	content: "";
+	content: '';
 	position: absolute;
 	top: 0;
 	left: 0;

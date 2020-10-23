@@ -1,4 +1,4 @@
-import mutations from "../mutations";
+import mutations from '../mutations';
 
 const { TOGGLE_LOADER } = mutations;
 
@@ -19,7 +19,7 @@ const loaderStore = {
 
 	actions: {
 		toggleLoader({ commit }, bool) {
-			commit("TOGGLE_LOADER", bool);
+			commit('TOGGLE_LOADER', bool);
 		},
 	},
 };

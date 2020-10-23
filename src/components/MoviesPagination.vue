@@ -12,7 +12,7 @@
 
 <script>
 export default {
-	name: "MoviesPagination",
+	name: 'MoviesPagination',
 
 	props: {
 		currentPage: {
@@ -35,7 +35,7 @@ export default {
 				return this.currentPage;
 			},
 			set(value) {
-				this.$emit("pageChanged", value);
+				this.$emit('pageChanged', value);
 			},
 		},
 	},

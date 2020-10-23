@@ -26,7 +26,7 @@
 
 <script>
 export default {
-	name: "MovieItem",
+	name: 'MovieItem',
 
 	props: {
 		movie: {
@@ -39,14 +39,14 @@ export default {
 	computed: {
 		posterBg() {
 			return {
-				"background-image": `url(${this.movie.Poster})`,
+				'background-image': `url(${this.movie.Poster})`,
 			};
 		},
 	},
 
 	methods: {
 		emitRemoveEvent() {
-			this.$emit("removeItem", {
+			this.$emit('removeItem', {
 				id: this.movie.imdbID,
 				title: this.movie.Title,
 			});
